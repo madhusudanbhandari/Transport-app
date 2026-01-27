@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_textfield.dart';
-//import 'register_screen.dart';
+import 'register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -51,15 +51,21 @@ class LoginScreen extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // TextButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (_) => const RegisterScreen()),
-            //     );
-            //   },
-            //   child: const Text("Don’t have an account? Register"),
-            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Dont have an account? "),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    );
+                  },
+                  child: Text("Register"),
+                ),
+              ],
+            ),
           ],
         ),
       ),
