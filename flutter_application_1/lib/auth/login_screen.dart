@@ -30,6 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 size: 80,
                 color: Theme.of(context).primaryColor,
               ),
+              SizedBox(height: 8),
+              Text(
+                "Kathmandu Transit",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 5),
+              Text("Login to continue"),
 
               const SizedBox(height: 32),
 
