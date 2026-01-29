@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/services/auth_services.dart';
 import '../widgets/custom_textfield.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -77,13 +78,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      print("Name: ${nameController.text}");
-                      print("Email: ${emailController.text}");
-                      print("Password: ${passwordController.text}");
+                      final result = await AuthService.register(
+                        nameController.text.trim(),
+                        emailController.text.trim(),
+                        passwordController.text.trim(),
+                      );
+
+                      if (result["message"] == "User registered successfully") {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Registration successful"),
+                          ),
+                        );
+                        Navigator.pop(context); // back to login
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(result["message"])),
+                        );
+                      }
                     }
                   },
+
                   child: const Text("Register"),
                 ),
               ),
