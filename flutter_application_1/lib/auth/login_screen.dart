@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/services/auth_services.dart';
 import '../widgets/custom_textfield.dart';
 import 'register_screen.dart';
 
@@ -76,10 +77,30 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      print("Email: ${emailController.text}");
-                      print("Password: ${passwordController.text}");
+                      final response = await AuthService.login(
+                        emailController.text.trim(),
+                        passwordController.text.trim(),
+                      );
+
+                      if (response["token"] != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Login Successful")),
+                        );
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              response["message"] ?? "Login Failed",
+                            ),
+                          ),
+                        );
+                      }
                     }
                   },
                   child: const Text("Login"),
