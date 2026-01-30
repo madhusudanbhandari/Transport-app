@@ -12,15 +12,11 @@ class AuthService {
     String email,
     String password,
   ) async {
-    print("Sending request..");
-    print("$baseUrl/register");
     final response = await http.post(
       Uri.parse("$baseUrl/register"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"name": name, "email": email, "password": password}),
     );
-    print("Status code: ${response.statusCode}");
-    print("Body: ${response.body}");
 
     return jsonDecode(response.body);
   }
