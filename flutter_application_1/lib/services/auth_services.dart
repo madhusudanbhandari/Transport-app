@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   static const String baseUrl = "http://localhost:5000/api/auth";
@@ -30,6 +31,21 @@ class AuthService {
       Uri.parse("$baseUrl/login"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"email": email, "password": password}),
+    );
+
+    return jsonDecode(response.body);
+  }
+
+  static Future<Map<String, dynamic>> getProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("token");
+
+    final response = await http.get(
+      Uri.parse("$baseUrl/profile"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token ?? "",
+      },
     );
 
     return jsonDecode(response.body);
