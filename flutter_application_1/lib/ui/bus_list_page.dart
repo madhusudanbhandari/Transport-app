@@ -29,8 +29,10 @@ class BusListPage extends StatelessWidget {
             ),
             child: ListTile(
               leading: const Icon(Icons.directions_bus, color: Colors.orange),
-              title: Text(bus['name']!),
-              subtitle: Text("${bus['route']} • Seats: ${bus['seats']}"),
+              title: Text(bus['name'] as String),
+              subtitle: Text(
+                "${bus['route'] as String} • Seats: ${bus['seats']}",
+              ),
               trailing: IconButton(
                 icon: const Icon(
                   Icons.arrow_forward,
