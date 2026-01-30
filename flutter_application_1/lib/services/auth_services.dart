@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  static const String baseUrl = "http://10.0.2.2:5000/api/auth";
+  static const String baseUrl = "http://localhost:5000/api/auth";
   // 10.0.2.2 = localhost for Android emulator
   // Use PC IP if testing on real phone
 
@@ -12,11 +12,15 @@ class AuthService {
     String email,
     String password,
   ) async {
+    print("Sending request..");
+    print("$baseUrl/register");
     final response = await http.post(
       Uri.parse("$baseUrl/register"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"name": name, "email": email, "password": password}),
     );
+    print("Status code: ${response.statusCode}");
+    print("Body: ${response.body}");
 
     return jsonDecode(response.body);
   }
