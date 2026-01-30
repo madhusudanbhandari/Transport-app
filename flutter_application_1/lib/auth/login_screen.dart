@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/services/auth_services.dart';
 import 'package:flutter_application_1/ui/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/custom_textfield.dart';
 import 'register_screen.dart';
 
@@ -84,6 +85,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         emailController.text.trim(),
                         passwordController.text.trim(),
                       );
+                      final result = await AuthService.login(
+                        emailController.text.trim(),
+                        passwordController.text.trim(),
+                      );
+
+                      if (result["token"] != null) {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setString("token", result["token"]);
+                      }
 
                       if (response["token"] != null) {
                         ScaffoldMessenger.of(context).showSnackBar(
