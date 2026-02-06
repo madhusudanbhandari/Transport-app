@@ -22,7 +22,7 @@ class BusListPage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // ❌ Error state
+       
           if (snapshot.hasError) {
             return Center(child: Text("Error: ${snapshot.error}"));
           }
