@@ -74,6 +74,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               const SizedBox(height: 20),
+              dropdownButton(
+                items:const[
+                  DropdownMenuItem(child: Text("User"), value: "user"),
+                  DropdownMenuItem(child: Text("Admin"), value: "admin"),
+                ]
+              ),
+              const SizedBox(height: 20),
 
               SizedBox(
                 width: double.infinity,
